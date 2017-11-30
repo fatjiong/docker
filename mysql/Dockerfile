@@ -13,27 +13,11 @@
 FROM fatjiong/centos7:7.4
 MAINTAINER fatjiong 757970599@qq.com
 
-#------------------------------------------------------------
-# 升级基础软件
-RUN yum update -y
+RUN yum install -y mysql && \
+	yum clean all
 
-#------------------------------------------------------------
-# 安装基本软件
-RUN yum -y install net-tools tcl pcre pcre-devel zlib zlib-devel openssl openssl-devel libxml2 libxml2-devel libjpeg libjpeg-devel libpng libpng-devel curl curl-devel freetype freetype-devel libmcrypt libmcrypt-devel cmake gcc-c++ ncurses-devel perl-Data-Dumper autoconf wget libicu libicu-devel libmcrypt libmcrypt-devel vim && \
-    yum install -y --enablerepo=epel pwgen python-pip && \
-    yum clean all
+#ADD my.cnf /etc/my.cnf
 
-#------------------------------------------------------------
-# 安装supervictl
-RUN pip install supervisor
-ADD supervisord.conf /etc/supervisord.conf
+EXPOSE	3306
 
-RUN mkdir -p /etc/supervisor.conf.d && \
-    mkdir -p /var/log/supervisor
-
-#------------------------------------------------------------
-# 暴露端口
-EXPOSE 80 443
-
-# 服务启动
-CMD ["/usr/bin/supervisord","-n","-c","/etc/supervisord.conf"]
+CMD mysqld_safe

@@ -1,9 +1,6 @@
-version: '1'
+version: '2'
 services:
     nginx:
-    volumes:
-    mysql:
-mongodb:
-
-redis:
-  
+        build: nginx/.
+        ports:
+            - 8080:80
