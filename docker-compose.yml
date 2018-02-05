@@ -1,6 +1,21 @@
-version: '2'
+version: "2"
 services:
-    nginx:
-        build: nginx/.
-        ports:
-            - 8080:80
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - php
+    restart: always
+    volumes:
+      - /Users/fatjiong/Sites:/usr/share/nginx/html
+      - /Users/fatjiong/Sites/nginxConf:/etc/nginx/conf.d
+      - /Users/fatjiong/Sites/logs:/var/log/nginx
+    container_name: nginx 
+  php:
+    image: php:7.0.27-fpm
+    volumes:
+      - /Users/fatjiong/Sites:/usr/share/nginx/html
+    restart: always
+    container_name: php 
