@@ -18,6 +18,8 @@ services:
     volumes:
       - /Users/fatjiong/Sites:/usr/share/nginx/html
     restart: always
+    depends_on:
+      - mysql
     container_name: php
   mysql:
     image: mysql
@@ -29,3 +31,4 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: 123456
+    container_name: mysql
