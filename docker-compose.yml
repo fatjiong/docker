@@ -52,3 +52,4 @@ services:
        --requirepass "$$(cat $$REDIS_PASS_FILE)"
       '
     ]
+    container_name: redis
