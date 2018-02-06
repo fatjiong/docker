@@ -6,7 +6,8 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - php
+      - mysql
+      - redis
     restart: always
     volumes:
       - /Users/fatjiong/Sites:/usr/share/nginx/html
@@ -14,12 +15,16 @@ services:
       - /Users/fatjiong/Sites/logs:/var/log/nginx
     container_name: nginx 
   php:
-    image: php:7.0.27-fpm
+    build: ./php
     volumes:
       - /Users/fatjiong/Sites:/usr/share/nginx/html
     restart: always
     depends_on:
       - mysql
+      - redis
+    links:
+      - mysql
+      - redis
     container_name: php
   mysql:
     image: mysql
@@ -27,8 +32,23 @@ services:
       - /Users/fatjiong/Sites/datas:/var/lib/mysql
     ports:
       - "3306:3306"
+    restart: always
     environment:
       MYSQL_USER: root
       MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: 123456
     container_name: mysql
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: always
+    environment:
+        REDIS_PASS_FILE: 123456
+    command: [
+      "bash", "-c",
+      '
+       docker-entrypoint.sh
+       --requirepass "$$(cat $$REDIS_PASS_FILE)"
+      '
+    ]
