@@ -9,7 +9,7 @@ RUN apt-get update \
         --with-png-dir=/usr/include \
         --with-jpeg-dir=/usr/include \
   && docker-php-ext-install mysqli pdo_pgsql pdo_mysql gd zip opcache iconv mcrypt mbstring \
-  && docker-php-ext-enable opcache gd
+  && docker-php-ext-enable opcache gd \
   && pecl channel-update pecl.php.net \
   && pecl install igbinary \
   && pecl install redis \
