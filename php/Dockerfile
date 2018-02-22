@@ -1,8 +1,8 @@
-FROM php:7.0.24-fpm
+FROM php:7.0.27-fpm
 
 RUN docker-php-ext-enable opcache
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends libpq-dev libpng-dev libjpeg-dev libfreetype6-dev libmcrypt-dev libpng12-dev \
+  && apt-get install -y --no-install-recommends libpq-dev libpng-dev libjpeg-dev libfreetype6-dev libmcrypt-dev libpng12-dev libxml2-dev \
   && docker-php-ext-configure gd \
         --enable-gd-native-ttf \
         --with-freetype-dir=/usr/include/freetype2 \
