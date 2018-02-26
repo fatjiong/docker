@@ -13,6 +13,7 @@ RUN apt-get update \
   && pecl channel-update pecl.php.net \
   && pecl install igbinary \
   && pecl install redis \
+  && pecl install mongodb \
   && pecl install swoole
 
 COPY ./php.ini /usr/local/etc/php/conf.d/
