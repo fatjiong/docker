@@ -46,19 +46,11 @@ services:
       - /www/datas/mongo:/data/db
     ports:
       - "27017:27017"
+    restart: always
     container_name: mongo
   redis:
     image: redis
     ports:
       - "6379:6379"
     restart: always
-    environment:
-        REDIS_PASS_FILE: 123456
-    command: [
-      "bash", "-c",
-      '
-       docker-entrypoint.sh
-       --requirepass "$$(cat $$REDIS_PASS_FILE)"
-      '
-    ]
     container_name: redis
