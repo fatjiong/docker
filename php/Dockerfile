@@ -1,4 +1,4 @@
-FROM php:7.0.27-fpm
+FROM php:7.0.28-fpm
 
 RUN docker-php-ext-enable opcache
 RUN apt-get update \
