@@ -1,6 +1,6 @@
 version: "2"
 services:
-  web:
+  nginx:
     image: nginx
     ports:
       - "80:80"
@@ -8,16 +8,17 @@ services:
     depends_on:
       - mysql
       - redis
+      - mongo
     restart: always
     volumes:
-      - /Users/fatjiong/Sites:/usr/share/nginx/html
-      - /Users/fatjiong/Sites/nginxConf:/etc/nginx/conf.d
-      - /Users/fatjiong/Sites/logs:/var/log/nginx
+      - /www/wwwroot:/usr/share/nginx/html
+      - /www/nginxConf:/etc/nginx/conf.d
+      - /www/logs:/var/log/nginx
     container_name: nginx 
   php:
     build: ./php
     volumes:
-      - /Users/fatjiong/Sites:/usr/share/nginx/html
+      - /www/wwwroot:/usr/share/nginx/html
     restart: always
     depends_on:
       - mysql
@@ -25,11 +26,12 @@ services:
     links:
       - mysql
       - redis
+      - mongo
     container_name: php
   mysql:
     image: mysql
     volumes:
-      - /Users/fatjiong/Sites/datas:/var/lib/mysql
+      - /www/datas/mysql:/var/lib/mysql
     ports:
       - "3306:3306"
     restart: always
@@ -38,6 +40,13 @@ services:
       MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: 123456
     container_name: mysql
+  mongo:
+    image: mongo
+    volumes:
+      - /www/datas/mongo:/data/db
+    ports:
+      - "27017:27017"
+    container_name: mongo
   redis:
     image: redis
     ports:
