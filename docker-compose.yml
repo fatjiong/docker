@@ -9,6 +9,7 @@ services:
       - mysql
       - redis
       - mongo
+      - postgres
     restart: always
     volumes:
       - /www/wwwroot:/usr/share/nginx/html
@@ -27,6 +28,7 @@ services:
       - mysql
       - redis
       - mongo
+      - postgres
     container_name: php
   mysql:
     image: mysql
@@ -40,6 +42,16 @@ services:
       MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: 123456
     container_name: mysql
+  postgres:
+    image: postgres
+    volumes:
+      - /www/datas/postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 123456
+    container_name: postgres
   mongo:
     image: mongo
     volumes:
