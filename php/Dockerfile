@@ -8,13 +8,12 @@ RUN apt-get update \
         --with-freetype-dir=/usr/include/freetype2 \
         --with-png-dir=/usr/include \
         --with-jpeg-dir=/usr/include \
-  && docker-php-ext-install mysqli pdo_pgsql pdo_mysql gd zip opcache iconv mcrypt mbstring \
-  && docker-php-ext-enable opcache gd \
-  && pecl channel-update pecl.php.net \
-  && pecl install igbinary \
+  && docker-php-ext-install mysqli pdo_pgsql pdo_mysql gd zip opcache iconv mbstring \
+  && docker-php-ext-enable opcache gd \  && pecl install igbinary \
   && pecl install redis \
   && pecl install mongodb \
   && pecl install swoole \
-  && pecl install bcmath
+  && pecl install bcmath \
+  && pecl install mcrypt 
 
 COPY ./php.ini /usr/local/etc/php/conf.d/
