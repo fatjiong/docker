@@ -1,8 +1,8 @@
-FROM php:7.0.28-fpm
+FROM php:7.2.3-fpm
 
 RUN docker-php-ext-enable opcache
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends libpq-dev libpng-dev libjpeg-dev libfreetype6-dev libmcrypt-dev libpng12-dev libxml2-dev \
+  && apt-get install -y --no-install-recommends libpq-dev libpng-dev libjpeg-dev libfreetype6-dev libmcrypt-dev libpng-dev libxml2-dev \
   && docker-php-ext-configure gd \
         --enable-gd-native-ttf \
         --with-freetype-dir=/usr/include/freetype2 \
@@ -14,6 +14,7 @@ RUN apt-get update \
   && pecl install igbinary \
   && pecl install redis \
   && pecl install mongodb \
-  && pecl install swoole
+  && pecl install swoole \
+  && pecl install bcmath
 
 COPY ./php.ini /usr/local/etc/php/conf.d/
