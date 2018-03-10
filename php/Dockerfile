@@ -4,7 +4,6 @@ RUN docker-php-ext-enable opcache
 RUN apt-get update \
   && apt-get install -y --no-install-recommends libpq-dev libpng-dev libjpeg-dev libfreetype6-dev libmcrypt-dev libpng-dev libxml2-dev \
   && docker-php-ext-configure gd \
-        --enable-gd-native-ttf \
         --with-freetype-dir=/usr/include/freetype2 \
         --with-png-dir=/usr/include \
         --with-jpeg-dir=/usr/include \
@@ -13,7 +12,6 @@ RUN apt-get update \
   && pecl install redis \
   && pecl install mongodb \
   && pecl install swoole \
-  && pecl install bcmath \
-  && pecl install mcrypt 
+  && pecl install bcmath
 
 COPY ./php.ini /usr/local/etc/php/conf.d/
