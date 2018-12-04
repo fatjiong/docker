@@ -1,0 +1,13 @@
+#个人使用的docke-compose.yml
+
+------
+
+    为了更加方便的构建工作环境，编写了自己使用的docker-compose.yml文件，包含了以下组件：
+> * nginx:latest
+> * mysql:5.7(latest)
+> * php:(7.0.*,7.1.*,7.2.*)
+> * mysql:5.7(latest)
+> * redis:latest
+> * mongo:latest
+> * postgres:latest
+> * postgres:latest
